@@ -27,7 +27,7 @@
      var newAirplane = {
          manufacturer : manufacturer,
          type : type,
-         location : location
+         location : {name : location}
      };
 
      console.log(newAirplane);
@@ -63,7 +63,7 @@
      // Create JS object with data.
      var flyAirplane = {
          id : id,
-         location : destination
+         location : {name: destination}
      };
      console.log(flyAirplane);
 
@@ -158,7 +158,7 @@
              { "data": "manufacturer" },
              { "data": "type" },
              { "data": "fuel" },
-             { "data": "location" }
+             { "data": "location.name" }
          ]
      });
      getData();

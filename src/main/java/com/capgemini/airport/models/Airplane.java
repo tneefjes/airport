@@ -12,8 +12,8 @@ public class Airplane {
     private String manufacturer;
     private String type;
     private int fuel;
-    //@ManyToOne(cascade=CascadeType.ALL)
-    private String location;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Airport location;
 
     public Airplane() {};
 
@@ -49,11 +49,11 @@ public class Airplane {
         this.fuel = fuel;
     }
 
-    public String getLocation() {
+    public Airport getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(Airport location) {
         this.location = location;
     }
 }
