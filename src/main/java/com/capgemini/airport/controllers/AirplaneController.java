@@ -32,7 +32,13 @@ public class AirplaneController {
             throw new RuntimeException();
         } else {
             Airplane oldAirplane = airplane.get();
-            oldAirplane.setFuel(newAirplane.getFuel());
+            if (newAirplane.getLocation() != null && newAirplane.getLocation() != oldAirplane.getLocation()) {
+                oldAirplane.setLocation(newAirplane.getLocation());
+                oldAirplane.setFuel(oldAirplane.getFuel() - 2);
+            }
+            if (newAirplane.getFuel() != 0) {
+                oldAirplane.setFuel(newAirplane.getFuel());
+            }
             return airplaneRepository.save(oldAirplane);
         }
     }

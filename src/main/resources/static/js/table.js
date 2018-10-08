@@ -52,10 +52,73 @@
          }
      });
  }
- 
+
+ function fly() {
+     console.log("The airplane is departing...");
+
+     // Get values from html.
+     var id = $("#idFly").val();
+     var destination = $("#destinationFly").val();
+
+     // Create JS object with data.
+     var flyAirplane = {
+         id : id,
+         location : destination
+     };
+     console.log(flyAirplane);
+
+     // Convert JS object to JSON.
+     var validJsonTable = JSON.stringify(flyAirplane);
+     console.log(validJsonTable);
+
+     // Post JSON to endpoint.
+     $.ajax({
+         url:"api/airplane/update/" + $("#idFly").val(),
+         type:"put",
+         data: validJsonTable,
+         contentType: "application/json",
+         success: function(result) {
+             // On successful post, reload data to get the added one as well.
+             console.log("success put data!");
+             getData();
+         }
+     });
+ }
+
+ function refuel() {
+      console.log("Refueling the airplane...");
+
+      // Get values from html.
+      var id = $("#idRefuel").val();
+
+      // Create JS object with data.
+      var refuelAirplane = {
+          id : id,
+          fuel: 5
+      };
+      console.log(refuelAirplane);
+
+      // Convert JS object to JSON.
+      var validJsonTable = JSON.stringify(refuelAirplane);
+      console.log(validJsonTable);
+
+      // Post JSON to endpoint.
+      $.ajax({
+          url:"api/airplane/update/" + id,
+          type:"put",
+          data: validJsonTable,
+          contentType: "application/json",
+          success: function(result) {
+              // On successful post, reload data to get the added one as well.
+              console.log("success put data!");
+              getData();
+          }
+      });
+ }
+
  $(document).ready(function () {
 
-    // Add table modal submit.
+    // Add airplane modal submit.
     $("#newAirplaneForm").on('submit', function(e) {
         console.log("Submitted new airplane form");
         // Post the data from the modal.
@@ -67,7 +130,28 @@
         $("#locationAdd").val("");
     });
 
-     //load table with data format
+    // Fly modal submit.
+    $("#flyForm").on('submit', function(e) {
+        console.log("Submitted fly form");
+
+        fly();
+        // Reset modal to hide and no values.
+        $('#flyModal').modal('hide');
+        $("#idFly").val("");
+        $("#destinationFly").val("");
+    });
+
+    // Fly modal submit.
+    $("#refuelForm").on('submit', function(e) {
+        console.log("Submitted refuel form");
+
+        refuel();
+        // Reset modal to hide and no values.
+        $('#refuelModal').modal('hide');
+        $("#idFly").val("");
+    });
+
+     // Load table with data format
      $('#table').DataTable({
          columns: [
              { "data": "id" },
